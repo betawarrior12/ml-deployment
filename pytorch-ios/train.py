@@ -77,7 +77,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=2):
 
 
     for epoch in range(num_epochs):
-        print('Epoch {}/{}'.format(epoch+1, num_epochs))
+        print(f'Epoch {epoch + 1}/{num_epochs}')
         print('-' * 10)
 
         # Each epoch has a training and validation phase
@@ -97,7 +97,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=2):
 
                 # zero the parameter gradients
                 optimizer.zero_grad()
-                
+
                 if i % 200 == 199:
                     print('[%d, %d] loss: %.3f' % 
                           (epoch + 1, i, running_loss / (i * inputs.size(0))))
@@ -117,7 +117,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=2):
                 # statistics
                 running_loss += loss.item() * inputs.size(0)
                 running_corrects += torch.sum(preds == labels.data)
-            
+
             if phase == 'train':
                 scheduler.step()
 
@@ -129,7 +129,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=2):
 
             # deep copy the model
             if phase == 'val' and epoch_loss < best_loss:
-                print(f'New best model found!')
+                print('New best model found!')
                 print(f'New record loss: {epoch_loss}, previous record loss: {best_loss}')
                 best_loss = epoch_loss
                 best_acc = epoch_acc

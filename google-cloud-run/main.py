@@ -16,17 +16,14 @@ def transform_image(pillow_image):
     data = np.asarray(pillow_image)
     data = data / 255.0
     data = data[np.newaxis, ..., np.newaxis]
-    # --> [1, x, y, 1]
-    data = tf.image.resize(data, [28, 28])
-    return data
+    return tf.image.resize(data, [28, 28])
 
 
 def predict(x):
     predictions = model(x)
     predictions = tf.nn.softmax(predictions)
     pred0 = predictions[0]
-    label0 = np.argmax(pred0)
-    return label0
+    return np.argmax(pred0)
 
 app = Flask(__name__)
 

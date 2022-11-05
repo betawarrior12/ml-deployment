@@ -62,8 +62,8 @@ def preprocess(textdata):
         tweet = re.sub(url_pattern, ' URL', tweet)
         # Replace all emojis.
         for emoji in emojis.keys():
-            tweet = tweet.replace(emoji, "EMOJI" + emojis[emoji])
-            # Replace @USERNAME to 'USER'.
+            tweet = tweet.replace(emoji, f"EMOJI{emojis[emoji]}")
+                    # Replace @USERNAME to 'USER'.
         tweet = re.sub(user_pattern, ' USER', tweet)
         # Replace all non alphabets.
         tweet = re.sub(alpha_pattern, " ", tweet)
@@ -90,12 +90,10 @@ def predict(model, text):
 
     pred_to_label = {0: 'Negative', 1: 'Positive'}
 
-    # Make a list of text with sentiment.
-    data = []
-    for t, pred in zip(text, predictions):
-        data.append({'text': t, 'pred': int(pred), 'label': pred_to_label[pred]})
-
-    return data
+    return [
+        {'text': t, 'pred': int(pred), 'label': pred_to_label[pred]}
+        for t, pred in zip(text, predictions)
+    ]
 
 
 if __name__=="__main__":
