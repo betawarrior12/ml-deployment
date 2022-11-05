@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from PIL import Image
 import os
 
-test_data_dir = f'data/test'
+test_data_dir = 'data/test'
 test_data_files = os.listdir(test_data_dir)
 
 PATH = 'model.pt'
@@ -25,8 +25,7 @@ def transform_image(pillow_img):
     img = transforms.functional.resize(pillow_img, [224, 224])
     img = transforms.functional.to_tensor(img)
     img = transforms.functional.normalize(img, [0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-    minibatch = torch.stack([img])
-    return minibatch
+    return torch.stack([img])
 
 
 def predict(input_model, x):
